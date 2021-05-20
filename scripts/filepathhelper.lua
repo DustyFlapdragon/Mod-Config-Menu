@@ -83,7 +83,7 @@
 -------------
 -- version --
 -------------
-local fileVersion = 4
+local fileVersion = 5
 
 --prevent older/same version versions of this script from loading
 if FilepathHelper and FilepathHelper.Version >= fileVersion then
