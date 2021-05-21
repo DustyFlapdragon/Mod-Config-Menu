@@ -265,7 +265,7 @@ function ModConfigMenu.PostGameStarted()
 	end
 
 	isFirstRun = false
-	
+
 end
 if ModConfigMenu.Mod.AddCustomCallback then
 	ModConfigMenu.Mod:AddCustomCallback(CustomCallbacks.CCH_GAME_STARTED, ModConfigMenu.PostGameStarted)
@@ -1594,7 +1594,7 @@ ModConfigMenu.ControlsEnabled = true
 function ModConfigMenu.PostRender()
 
 	local game = Game()
-	local isPaused = game:IsPaused()
+	local isPaused = game:IsPaused() or AwaitingTextInput
 	
 	local sfx = SFXManager()
 
