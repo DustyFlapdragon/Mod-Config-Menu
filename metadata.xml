@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <metadata>
-    <name>!![Rep] Mod Config Menu</name>
+    <name>!!Mod Config Menu - Continued</name>
     <directory>!!mod config menu</directory>
     <id>2487535818</id>
-    <description>[h1]Why does this exist?[/h1]
+    <description>[h1]Why does this exist if the original works fine?[/h1]
 This was originally a quick update to fix the main issue of the mods list being empty when opening the mod menu.
 
 I've been told that the original works now (apparantly some issue was fixed with saves a few hours after mods were enabled). I haven't checked this myself, but you're obviously free to try it, no harm would befall you I don't think.
 
 However, the original won't be updated (see the note at the top of the original mod page), and I decided to make the original fix, and I want to attempt to keep it going (with the help of anyone that wishes to help).
 I have not checked for or fixed any other issues that may exist, but I do plan to try and fix issues that may present themselves, as well as add features.
-I am NOT well versed in BoI modding, so anyone else feel free to issue pull requests, but I'm willing to learn as much as I can.
+I am still learning BoI modding, so anyone else feel free to issue pull requests, but I'm willing to learn as much as I can.
 My fork is available if anyone wants to issue pull requests, here: https://gitlab.com/Chifilly/bindingofisaac-modconfigmenu
 
 [h1]Info[/h1]
