@@ -64,7 +64,7 @@ Removes a subcategory entirely.
 
 Add a new setting to the supplied category and subcategory with the provided data.  
 
-#### RemoveSetting([categoryName](#categoryName): string, [subcategoryName](#subcategoryName): string, settingAttribute: string)
+##### RemoveSetting([categoryName](#categoryName): string, [subcategoryName](#subcategoryName): string, settingAttribute: string)
 
 Remove the setting at the provided category, subcategory and attribute
 
