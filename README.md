@@ -14,6 +14,8 @@ When Mod Config Menu is installed, a global `ModConfigMenu` is available which c
 
 The settings added will show up in the order the functions are called.  
 
+___Disclaimer__: Some of the following information may be incorrect. I quickly threw this together in a couple of hours, and only did some quick parsing of the code to try and figure out how it works and the flow. Anyone is free to create an issue or pull request with corrections._  
+
 ### Functions
 
 #### Category Functions
