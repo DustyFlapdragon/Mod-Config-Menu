@@ -212,6 +212,7 @@ local versionPrintFont = Font()
 versionPrintFont:Load("font/pftempestasevencondensed.fnt")
 
 local versionPrintTimer = 0
+local isFirstRun = true
 
 --returns true if the room is clear and there are no active enemies and there are no projectiles
 ModConfigMenu.IgnoreActiveEnemies = ModConfigMenu.IgnoreActiveEnemies or {}
@@ -246,7 +247,7 @@ function ModConfigMenu.PostGameStarted()
 
 	rerunWarnMessage = nil
 
-	if ModConfigMenu.Config["Mod Config Menu"].ShowControls then
+	if ModConfigMenu.Config["Mod Config Menu"].ShowControls and isFirstRun then
 	
 		versionPrintTimer = 120
 		
@@ -262,7 +263,9 @@ function ModConfigMenu.PostGameStarted()
 		ModConfigMenu.IgnoreActiveEnemies[potatoType] = ModConfigMenu.IgnoreActiveEnemies or {}
 		ModConfigMenu.IgnoreActiveEnemies[potatoType][potatoVariant] = true
 	end
-	
+
+	isFirstRun = false
+
 end
 if ModConfigMenu.Mod.AddCustomCallback then
 	ModConfigMenu.Mod:AddCustomCallback(CustomCallbacks.CCH_GAME_STARTED, ModConfigMenu.PostGameStarted)
@@ -1591,7 +1594,7 @@ ModConfigMenu.ControlsEnabled = true
 function ModConfigMenu.PostRender()
 
 	local game = Game()
-	local isPaused = game:IsPaused()
+	local isPaused = game:IsPaused() or AwaitingTextInput
 	
 	local sfx = SFXManager()
 
@@ -1624,7 +1627,7 @@ function ModConfigMenu.PostRender()
 		local text = "Press " .. openMenuButtonString .. " to open Mod Config Menu"
 		local versionPrintColor = KColor(1, 1, 0, (math.min(versionPrintTimer, 60)/60) * 0.5)
 		versionPrintFont:DrawString(text, 0, bottomRight.Y - 28, versionPrintColor, bottomRight.X, true)
-		
+
 	end
 	
 	--on-screen warnings

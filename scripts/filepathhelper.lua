@@ -83,7 +83,7 @@
 -------------
 -- version --
 -------------
-local fileVersion = 4
+local fileVersion = 5
 
 --prevent older/same version versions of this script from loading
 if FilepathHelper and FilepathHelper.Version >= fileVersion then
@@ -112,11 +112,13 @@ end
 -- basic path handling --
 -------------------------
 FilepathHelper.KnownFilePathsByName = {
-	["resources/scripts/"] = true
+	["resources/scripts/"] = true,
+	["mods"] = true
 }
 
 FilepathHelper.KnownFilePathsByIndex = {
-	"resources/scripts/"
+	"resources/scripts/",
+	"mods"
 }
 
 --returns the path to the current mod
