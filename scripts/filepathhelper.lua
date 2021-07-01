@@ -239,11 +239,10 @@ function FilepathHelper.DoFile(filename)
 		
 			fileLoaded, returned = pcall(require, filename)
 			
-			local warnMsg = "dofile failed to load " .. filename .. ", falling back to require"
+			local warnMsg = "dofile could not load " .. filename .. ", falling back to require"
 			
 			if fileLoaded then
 				
-				print(warnMsg)
 				Isaac.DebugString(warnMsg)
 				
 			elseif not string.find(returned, "no file") then
