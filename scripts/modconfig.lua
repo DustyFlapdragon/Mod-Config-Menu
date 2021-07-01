@@ -543,6 +543,13 @@ function ModConfigMenu.RemoveSubcategory(categoryName, subcategoryName)
 end
 
 --SETTING FUNCTIONS
+
+--- Add a new setting to the supplied category and subcategory with the provided data.
+--- If the category/subcategory does not exist, create it.
+--- This is the default way to create settings, all other setting options utilise it
+---@param categoryName string | number Name of category on the left of ModConfigMenu
+---@param subcategoryName? any Name of the sub category on the tab list at the top of ModConfigMenu
+---@param settingTable? table a table of setting data 
 function ModConfigMenu.AddSetting(categoryName, subcategoryName, settingTable)
 
 	if settingTable == nil then
@@ -581,6 +588,12 @@ function ModConfigMenu.AddSetting(categoryName, subcategoryName, settingTable)
 	
 end
 
+---
+--- Add text into the mod config menu under the provided category and subcategory.
+--- @param categoryName string category on the left of ModConfigMenu
+--- @param subcategoryName string of the sub category on the tab list at the top of ModConfigMenu
+--- @param text function | string the text to be added
+--- @param color? unknown the colour of the text @todo figure out how text works
 function ModConfigMenu.AddText(categoryName, subcategoryName, text, color)
 
 	if color == nil and type(text) ~= "string" and type(text) ~= "function" then
@@ -609,6 +622,11 @@ function ModConfigMenu.AddText(categoryName, subcategoryName, text, color)
 	
 end
 
+--- Add a title to the mod config menu under the provided category and subcategory
+--- @param categoryName string Name of category on the left of ModConfigMenu
+--- @param subcategoryName string Name of the sub category on the tab list at the top of ModConfigMenu
+--- @param text function | string A string of text to be added
+--- @param color? unknown colour apparently? @todo how the hell does this work, passing KColor doesn't work
 function ModConfigMenu.AddTitle(categoryName, subcategoryName, text, color)
 
 	if color == nil and type(text) ~= "string" and type(text) ~= "function" then
@@ -637,6 +655,9 @@ function ModConfigMenu.AddTitle(categoryName, subcategoryName, text, color)
 	
 end
 
+--- Add a space to the mod config menu under the provided category and subcategory.
+--- @param categoryName string Name of category on the left of ModConfigMenu
+--- @param subcategoryName string Name of the sub category on the tab list at the top of ModConfigMenu
 function ModConfigMenu.AddSpace(categoryName, subcategoryName)
 	
 	if type(categoryName) ~= "string" and type(categoryName) ~= "number" then
@@ -657,6 +678,22 @@ function ModConfigMenu.AddSpace(categoryName, subcategoryName)
 end
 
 local altSlider = false
+--- Create a setting without using a table.
+--- arguably a more complicated way of processing a setting
+--- @param settingType OptionType the type of setting to add
+--- @param categoryName string Name of category on the left of ModConfigMenu
+--- @param subcategoryName string Name of the sub category on the tab list at the top of ModConfigMenu
+--- @param configTableAttribute string an optional attribute for the setting
+--- @param minValue number the minimum setting value, used for AddNumberSetting
+--- @param maxValue number the maximum setting value, used for AddNumberSetting
+--- @param modifyBy number the number to modify the AddNumberSetting by
+--- @param defaultValue number | boolean the default value of the setting
+--- @param displayText string text to be displayed
+--- @param displayValueProxies table A table that denotes what text will be displayed based on the setting value as the index.
+--- @param displayDevice? boolean Whether the display text should be suffixed with the control device ((keyboard) or (controller)).
+--- @param info? string the information for the setting
+--- @param color? string
+--- @param functionName? string The name of the function it was called from (only used in error messages, and really only used internally).
 function ModConfigMenu.SimpleAddSetting(settingType, categoryName, subcategoryName, configTableAttribute, minValue, maxValue, modifyBy, defaultValue, displayText, displayValueProxies, displayDevice, info, color, functionName)
 	
 	--set default values
@@ -856,6 +893,15 @@ function ModConfigMenu.SimpleAddSetting(settingType, categoryName, subcategoryNa
 	
 end
 
+--- Add a boolean setting under the provided category and subcategory.
+--- @param categoryName string Name of category on the left of ModConfigMenu
+--- @param subcategoryName string Name of the sub category on the tab list at the top of ModConfigMenu
+--- @param configTableAttribute string an optional attribute for the setting
+--- @param defaultValue number | boolean the default value of the setting
+--- @param displayText string text to be displayed
+--- @param displayValueProxies table A table that denotes what text will be displayed based on the setting value as the index.
+--- @param info? string the information for the setting
+--- @param color? string
 function ModConfigMenu.AddBooleanSetting(categoryName, subcategoryName, configTableAttribute, defaultValue, displayText, displayValueProxies, info, color)
 
 	--move args around
@@ -887,6 +933,18 @@ function ModConfigMenu.AddBooleanSetting(categoryName, subcategoryName, configTa
 	
 end
 
+--- Add a number value setting under the provided category and subcategory.
+--- @param categoryName string Name of category on the left of ModConfigMenu
+--- @param subcategoryName string Name of the sub category on the tab list at the top of ModConfigMenu
+--- @param configTableAttribute string an optional attribute for the setting
+--- @param minValue number the minimum setting value, used for AddNumberSetting
+--- @param maxValue number the maximum setting value, used for AddNumberSetting
+--- @param modifyBy number the number to modify the AddNumberSetting by
+--- @param defaultValue number | boolean the default value of the setting
+--- @param displayText string text to be displayed
+--- @param displayValueProxies table A table that denotes what text will be displayed based on the setting value as the index.
+--- @param info? string the information for the setting
+--- @param color? string
 function ModConfigMenu.AddNumberSetting(categoryName, subcategoryName, configTableAttribute, minValue, maxValue, modifyBy, defaultValue, displayText, displayValueProxies, info, color)
 
 	--move args around
@@ -928,6 +986,14 @@ function ModConfigMenu.AddNumberSetting(categoryName, subcategoryName, configTab
 	
 end
 
+--- Add a slider setting under the provided category and subcategory.
+--- @param categoryName string Name of category on the left of ModConfigMenu
+--- @param subcategoryName string Name of the sub category on the tab list at the top of ModConfigMenu
+--- @param configTableAttribute string an optional attribute for the setting
+--- @param defaultValue number | boolean the default value of the setting
+--- @param displayText string text to be displayed
+--- @param info? string the information for the setting
+--- @param color? string
 function ModConfigMenu.AddScrollSetting(categoryName, subcategoryName, configTableAttribute, defaultValue, displayText, info, color)
 
 	--move args around
@@ -954,6 +1020,15 @@ function ModConfigMenu.AddScrollSetting(categoryName, subcategoryName, configTab
 	
 end
 
+--- Add a keyboard keybinding setting.
+--- @param categoryName string Name of category on the left of ModConfigMenu
+--- @param subcategoryName string Name of the sub category on the tab list at the top of ModConfigMenu
+--- @param configTableAttribute string an optional attribute for the setting
+--- @param defaultValue number | boolean the default value of the setting
+--- @param displayText string text to be displayed
+--- @param displayDevice boolean Whether the display text should be suffixed with the control device ((keyboard) or (controller)).
+--- @param info? string the information for the setting
+--- @param color? string
 function ModConfigMenu.AddKeyboardSetting(categoryName, subcategoryName, configTableAttribute, defaultValue, displayText, displayDevice, info, color)
 
 	--move args around
@@ -987,6 +1062,16 @@ function ModConfigMenu.AddKeyboardSetting(categoryName, subcategoryName, configT
 	
 end
 
+--- Add a controller keybinding setting.
+--- literally the same code as the keyboard one except to variables to AddSetting...
+--- @param categoryName string Name of category on the left of ModConfigMenu
+--- @param subcategoryName string Name of the sub category on the tab list at the top of ModConfigMenu
+--- @param configTableAttribute string an optional attribute for the setting
+--- @param defaultValue number | boolean the default value of the setting
+--- @param displayText string text to be displayed
+--- @param displayDevice boolean Whether the display text should be suffixed with the control device ((keyboard) or (controller)).
+--- @param info? string the information for the setting
+--- @param color? string
 function ModConfigMenu.AddControllerSetting(categoryName, subcategoryName, configTableAttribute, defaultValue, displayText, displayDevice, info, color)
 
 	--move args around
@@ -1020,6 +1105,10 @@ function ModConfigMenu.AddControllerSetting(categoryName, subcategoryName, confi
 	
 end
 
+--- Remove the setting at the provided category, subcategory and attribute
+--- @param categoryName string of category on the left of ModConfigMenu
+--- @param subcategoryName string of the sub category on the tab list at the top of ModConfigMenu
+--- @param settingAttribute? string an optional attribute for the setting
 function ModConfigMenu.RemoveSetting(categoryName, subcategoryName, settingAttribute)
 
 	if settingAttribute == nil then
