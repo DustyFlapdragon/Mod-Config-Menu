@@ -3199,13 +3199,19 @@ function ModConfigMenu.PostRender()
 end
 ModConfigMenu.Mod:AddCallback(ModCallbacks.MC_POST_RENDER, ModConfigMenu.PostRender)
 
+-- store TimeCounter so we can pause and restart it when opening/closing the menu.
+local timeCounter;
+
 function ModConfigMenu.OpenConfigMenu()
 
 	if ModConfigMenu.RoomIsSafe() then
 	
+		-- freeze the timer
+		local game = Game() 
+		timeCounter = game.TimeCounter
+	
 		if ModConfigMenu.Config["Mod Config Menu"].HideHudInMenu then
 		
-			local game = Game()
 			local seeds = game:GetSeeds()
 			seeds:AddSeedEffect(SeedEffect.SEED_NO_HUD)
 			
@@ -3231,6 +3237,7 @@ function ModConfigMenu.CloseConfigMenu()
 	local game = Game()
 	local seeds = game:GetSeeds()
 	seeds:RemoveSeedEffect(SeedEffect.SEED_NO_HUD)
+	game.TimeCounter = timeCounter
 	
 	
 	ModConfigMenu.IsVisible = false
