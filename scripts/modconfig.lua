@@ -1452,6 +1452,20 @@ local function updateCurrentMenuVars()
 	end
 end
 
+--- function for manually moving entries in teh MenuData
+--- @param menuData table the menu data table
+--- @param oldIndex number the current index of the entry
+--- @param newIndex	number the index to move the entry to
+local function shiftMenuDataEntry(menuData, oldIndex, newIndex)
+	local value = menuData[oldIndex]
+	if newIndex < oldIndex then
+	   table.move(menuData, newIndex, oldIndex - 1, newIndex + 1)
+	else    
+	   table.move(menuData, oldIndex + 1, newIndex, oldIndex) 
+	end
+	menuData[newIndex] = value
+end
+
 --leaving/entering menu sections
 function ModConfigMenu.EnterPopup()
 	if configMenuInSubcategory and configMenuInOptions and not configMenuInPopup then
@@ -2622,6 +2636,12 @@ function ModConfigMenu.PostRender()
 		--category
 		local lastLeftPos = leftPos
 		local renderedLeft = 0
+
+		-- Menu's are added to the table in whatever order mods are added, lets sort them alphabetically
+		table.sort(ModConfigMenu.MenuData, function(a,b) return a.Name < b.Name end)
+		-- We do still want the General settings menu at the top though, move it back
+		shiftMenuDataEntry(ModConfigMenu.MenuData, ModConfigMenu.GetCategoryIDByName("General"), 1)
+
 		for categoryIndex=1, #ModConfigMenu.MenuData do
 		
 			--text

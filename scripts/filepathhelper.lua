@@ -128,6 +128,12 @@ function FilepathHelper.GetCurrentModPath()
 	local _, err = pcall(require, "")
 	local _, basePathStart = string.find(err, "no file '", 1)
 	local _, modPathStart = string.find(err, "no file '", basePathStart)
+
+	-- Luadebug reorders the file paths, check if it has and use the first one
+	if string.find(string.sub(err, basePathStart, modPathStart), "/mods/", 1) then
+		modPathStart = basePathStart
+	end
+	
 	local modPathEnd, _ = string.find(err, ".lua'", modPathStart)
 	local modPath = string.sub(err, modPathStart+1, modPathEnd-1)
 	modPath = string.gsub(modPath, "\\", "/")
@@ -239,7 +245,7 @@ function FilepathHelper.DoFile(filename)
 		
 			fileLoaded, returned = pcall(require, filename)
 			
-			local warnMsg = "dofile could not load " .. filename .. ", falling back to require"
+			local warnMsg = "ModConfigMenu's dofile could not load " .. filename .. ", falling back to require"
 			
 			if fileLoaded then
 				
